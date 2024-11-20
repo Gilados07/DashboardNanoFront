@@ -19,7 +19,12 @@ export function Table({ data, pinnedCols }: TableProps) {
       className="ag-theme-quartz" // applying the Data Grid theme
       style={{ height: "auto" }} // the Data Grid will fill the size of the parent container
     >
-      <AgGridReact domLayout="autoHeight" rowData={data} columnDefs={columns} />
+      <AgGridReact
+        enableCellTextSelection
+        domLayout="autoHeight"
+        rowData={data}
+        columnDefs={columns}
+      />
     </div>
   );
 }
