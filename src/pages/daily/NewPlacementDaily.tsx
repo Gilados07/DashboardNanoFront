@@ -1,5 +1,5 @@
 import { useDailyNewPlacements } from "@/api/daily/newPlacement";
-import { Table } from "@/components/features/Table";
+import { Table } from "@/components/features/Table/Table";
 
 export function NewPlacementDaily() {
   const { data, isLoading } = useDailyNewPlacements();

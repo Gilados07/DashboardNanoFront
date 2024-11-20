@@ -1,5 +1,5 @@
 import { useDailyRecap } from "@/api/main/dailyRecap";
-import { Table } from "@/components/features/Table";
+import { Table } from "@/components/features/Table/Table";
 
 export function DailyRecap() {
   const { data, isLoading } = useDailyRecap();

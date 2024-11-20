@@ -2,6 +2,7 @@ import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import { ColDef } from "node_modules/ag-grid-community/dist/types/core/main";
+import { applyCellConditions } from "./utils";
 
 interface TableProps {
   data: Record<string, string>[];
@@ -31,7 +32,10 @@ const useTable = ({ data, pinnedCols }: TableProps) => {
   const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
     field: key,
     pinned: pinnedCols?.includes(index),
-    // search goes here
+    filter: "agTextColumnFilter",
+    cellStyle: ({ data, column }) => {
+      return applyCellConditions(data, column);
+    },
     comparator: (element1, element2) => {
       if (!isNaN(+element1) && !isNaN(+element2)) {
         return +element1 - +element2;

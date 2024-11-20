@@ -1,5 +1,5 @@
 import { usePublisherDecrease } from "@/api/main/publisherDecrease";
-import { Table } from "@/components/features/Table";
+import { Table } from "@/components/features/Table/Table";
 
 export function PublisherDecrease() {
   const { data, isLoading } = usePublisherDecrease();
