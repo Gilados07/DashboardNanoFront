@@ -1,5 +1,7 @@
 import { newPlacementQueryOptions } from "@/api/daily/newPlacement";
 import { dailyRecapQueryOptions } from "@/api/main/dailyRecap";
+import { publisherDecreaseQueryOptions } from "@/api/main/publisherDecrease";
+import { publisherIncreaseQueryOptions } from "@/api/main/publisherIncrease";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const useNavigationList = () => {
@@ -20,10 +22,16 @@ export const useNavigationList = () => {
         {
           title: "Daily Publisher Revenue Decrease",
           url: "/main/publisher-decrease",
+          prefetch: () => {
+            queryClient.prefetchQuery(publisherDecreaseQueryOptions);
+          },
         },
         {
           title: "Daily Publisher Revenue Increase",
           url: "/main/publisher-increase",
+          prefetch: () => {
+            queryClient.prefetchQuery(publisherIncreaseQueryOptions);
+          },
         },
       ],
     },
