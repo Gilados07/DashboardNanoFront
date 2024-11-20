@@ -1,4 +1,4 @@
-import { Table } from "@/components/myComponents/Table";
+import { Table } from "@/components/features/Table";
 import { useQuery } from "@tanstack/react-query";
 
 const getDailyRecap = async () => {
