@@ -10,7 +10,9 @@ import { DailyRecap } from "./pages/main/DailyRecap";
 import { PublisherDecrease } from "./pages/main/PublisherDecrease";
 import { PublisherIncrease } from "./pages/main/PublisherIncrease";
 import { NewPlacementDaily } from "./pages/daily/NewPlacementDaily";
+
 const queryClient = new QueryClient();
+
 function App() {
   return (
     <>

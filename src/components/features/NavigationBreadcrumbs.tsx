@@ -17,13 +17,11 @@ export const NavigationBreadcrumbs = React.memo(() => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className="hidden md:block">
-          <BreadcrumbLink className="text-white" href="#">
-            {folderName}
-          </BreadcrumbLink>
+          <BreadcrumbLink className="select-none">{folderName}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-white">{path}</BreadcrumbPage>
+          <BreadcrumbPage className="select-none">{path}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

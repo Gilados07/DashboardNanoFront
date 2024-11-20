@@ -18,7 +18,7 @@ export function Table({ data }: TableProps) {
       <TableHeader>
         <TableRow>
           {Object.keys(data[0]).map((key) => (
-            <TableHead >{key}</TableHead>
+            <TableHead>{key}</TableHead>
           ))}
         </TableRow>
       </TableHeader>
