@@ -32,7 +32,7 @@ const useTable = ({ data, pinnedCols }: TableProps) => {
   const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
     field: key,
     pinned: pinnedCols?.includes(index),
-    filter: "agTextColumnFilter",
+    filter: true,
     cellStyle: ({ data, column }) => {
       return applyCellConditions(data, column);
     },
