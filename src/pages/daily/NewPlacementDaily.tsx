@@ -1,21 +1,9 @@
+import { useDailyNewPlacements } from "@/api/daily/newPlacement";
 import { Table } from "@/components/features/Table";
-import { useQuery } from "@tanstack/react-query";
-
-const getNewPlacements = async () => {
-  const result = await fetch(
-    "http://localhost:3001/api/v1/reports/daily/new-placements"
-  );
-  const data = await result.json();
-
-  return data;
-};
 
 export function NewPlacementDaily() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["daily", "new-placements"],
-    queryFn: getNewPlacements,
-  });
-  console.log(data);
+  const { data, isLoading } = useDailyNewPlacements();
+
   return isLoading ? (
     <div>Loading...</div>
   ) : (
