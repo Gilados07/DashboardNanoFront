@@ -54,7 +54,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <Collapsible key={item.title} defaultOpen={index === 0}>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuItem>
-                      <SidebarMenuButton className="w-full justify-between  bg-sidebar-accent hover:bg-sidebar-accent/80 transition-colors">
+                      <SidebarMenuButton className="w-full justify-between hover:bg-sidebar-accent/80">
                         <span>{item.title}</span>
                         <ChevronDown className="h-4 w-4" />
                       </SidebarMenuButton>
