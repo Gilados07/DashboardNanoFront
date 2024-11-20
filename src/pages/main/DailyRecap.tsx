@@ -15,21 +15,14 @@ export function DailyRecap() {
     queryKey: ["main", "daily-recap"],
     queryFn: getDailyRecap,
   });
-  console.log(data);
+
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div className="w-full flex justify-center flex-col items-center h-full gap-10 ">
-      <div className="w-[80%] flex items-center flex-col">
-        <h1>Comparesion</h1>
-        <Table data={data?.comparison} />
-      </div>
-      <div className="w-[80%] ">
-        <Table data={data?.today} />
-      </div>
-      <div className="w-[80%]">
-        <Table data={data?.yesterday} />
-      </div>
+    <div className="w-full flex flex-col">
+      <Table data={data?.comparison} />
+      <Table data={data?.today} />
+      <Table data={data?.yesterday} />
     </div>
   );
 }
