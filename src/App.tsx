@@ -1,0 +1,45 @@
+import { AppLayout } from "./components/myComponents/AppLayout";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { DailyRecap } from "./pages/main/DailyRecap";
+import {PublisherDecrease} from "./pages/main/PublisherDecrease"
+import { PublisherIncrease } from "./pages/main/PublisherIncrease";
+import { NewPlacementDaily } from "./pages/daily/NewPlacementDaily";
+const queryClient = new QueryClient();
+function App() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          <Router>
+            <AppLayout>
+              <Routes>
+                <Route path="/" element={<DailyRecap />} />
+                <Route
+                  path="/daily/new-placements"
+                  element={<NewPlacementDaily />}
+                />
+                <Route
+                  path="/main/publisher-decrease"
+                  element={<PublisherDecrease />}
+                />
+                <Route
+                  path="/main/publisher-increase"
+                  element={<PublisherIncrease />}
+                />
+              </Routes>
+            </AppLayout>
+          </Router>
+        </div>
+      </QueryClientProvider>
+    </>
+  );
+}
+
+export default App;
