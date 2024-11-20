@@ -17,6 +17,7 @@ export function Table({ data, pinnedCols }: TableProps) {
       style={{ height: "auto" }} // the Data Grid will fill the size of the parent container
     >
       <AgGridReact
+        autoSizeStrategy={{ type: "fitGridWidth", defaultMinWidth: 100 }}
         enableCellTextSelection
         domLayout="autoHeight"
         rowData={data}
@@ -31,7 +32,9 @@ const useTable = ({ data, pinnedCols }: TableProps) => {
     field: key,
     pinned: pinnedCols?.includes(index),
     comparator: (element1, element2) => {
-      if (element1.includes("$")) {
+      if (!isNaN(+element1) && !isNaN(+element2)) {
+        return +element1 - +element2;
+      } else if (element1.includes("$")) {
         element1 = +element1.substring(0, element1.length - 1);
         element2 = +element2.substring(0, element2.length - 1);
 
