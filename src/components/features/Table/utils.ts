@@ -1,5 +1,7 @@
 import { Column } from "node_modules/ag-grid-community/dist/types/core/main";
 
+const MIN_VALUE_THRESHOLD = -50
+
 export const applyCellConditions = (
   data: Record<string, string>,
   column: Column
@@ -10,7 +12,7 @@ export const applyCellConditions = (
   ) {
     const valueWithoutSign = data?.Downgrade.replace(/[$,%]/g, "");
 
-    return +valueWithoutSign < -50
+    return +valueWithoutSign < MIN_VALUE_THRESHOLD
       ? { color: "#ef4444" }
       : { color: "inherit" };
   }
