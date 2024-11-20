@@ -31,6 +31,7 @@ const useTable = ({ data, pinnedCols }: TableProps) => {
   const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
     field: key,
     pinned: pinnedCols?.includes(index),
+    filter: true,
     // search goes here
     comparator: (element1, element2) => {
       if (!isNaN(+element1) && !isNaN(+element2)) {
