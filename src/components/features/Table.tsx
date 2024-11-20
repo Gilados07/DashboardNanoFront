@@ -9,8 +9,11 @@ interface TableProps {
 }
 
 export function Table({ data, pinnedCols }: TableProps) {
-  const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({ field: key, pinned: pinnedCols?.includes(index) }));
-  
+  const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
+    field: key,
+    pinned: pinnedCols?.includes(index),
+  }));
+
   return (
     <div
       className="ag-theme-quartz" // applying the Data Grid theme

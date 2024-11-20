@@ -54,7 +54,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <Collapsible key={item.title} defaultOpen={index === 0}>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuItem>
-                      <SidebarMenuButton className="w-full justify-between  bg-sidebar-accent hover:bg-sidebar-accent/80 transition-colors">
+                      <SidebarMenuButton className="w-full justify-between hover:bg-sidebar-accent/80">
                         <span>{item.title}</span>
                         <ChevronDown className="h-4 w-4" />
                       </SidebarMenuButton>
@@ -84,7 +84,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         <SidebarRail />
       </Sidebar>
       <SidebarInset className="max-h-40">
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-gradient-to-r from-fuchsia-400 to-purple-600">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
           <div className="flex items-center gap-2 px-3">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
