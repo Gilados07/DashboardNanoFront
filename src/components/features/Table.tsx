@@ -9,10 +9,7 @@ interface TableProps {
 }
 
 export function Table({ data, pinnedCols }: TableProps) {
-  const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
-    field: key,
-    pinned: pinnedCols?.includes(index),
-  }));
+  const { columns } = useTable({ data, pinnedCols });
 
   return (
     <div
@@ -28,3 +25,27 @@ export function Table({ data, pinnedCols }: TableProps) {
     </div>
   );
 }
+
+const useTable = ({ data, pinnedCols }: TableProps) => {
+  const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
+    field: key,
+    pinned: pinnedCols?.includes(index),
+    comparator: (element1, element2) => {
+      if (element1.includes("$")) {
+        element1 = +element1.substring(0, element1.length - 1);
+        element2 = +element2.substring(0, element2.length - 1);
+
+        return element1 - element2;
+      } else if (element1.includes("%")) {
+        element1 = +element1.substring(0, element1.length - 1);
+        element2 = +element2.substring(0, element2.length - 1);
+
+        return element1 - element2;
+      }
+
+      return element1.localeCompare(element2);
+    },
+  }));
+
+  return { columns };
+};
