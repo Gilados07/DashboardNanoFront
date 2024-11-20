@@ -19,7 +19,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Link } from "react-router-dom";
-import { navigationList } from "@/constants/navigationList";
+import { useNavigationList } from "@/hooks/useNavigationList";
 import { NavigationBreadcrumbs } from "./NavigationBreadcrumbs";
 
 interface AppLayoutProps {
@@ -27,6 +27,8 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ children }: AppLayoutProps) {
+  const { navigationList } = useNavigationList();
+
   return (
     <SidebarProvider>
       <Sidebar>
@@ -63,7 +65,10 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <CollapsibleContent>
                     <div className="pl-4 pt-1">
                       {item.items?.map((subItem) => (
-                        <SidebarMenuItem key={subItem.title}>
+                        <SidebarMenuItem
+                          onMouseEnter={subItem.prefetch}
+                          key={subItem.title}
+                        >
                           <SidebarMenuButton asChild>
                             <Link
                               to={subItem.url}

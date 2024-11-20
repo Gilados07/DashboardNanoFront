@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useLocation } from "react-router-dom";
-import { navigationList } from "@/constants/navigationList";
+import { useNavigationList } from "@/hooks/useNavigationList";
 
 export const NavigationBreadcrumbs = React.memo(() => {
   const { folderName, path } = useNavigationBreadcrumbs();
@@ -32,6 +32,7 @@ NavigationBreadcrumbs.displayName = "NavigationBreadcrumbs";
 
 const useNavigationBreadcrumbs = () => {
   const { pathname } = useLocation();
+  const { navigationList } = useNavigationList();
   const [folderUrl, pathUrl] = pathname.split("/").slice(1);
 
   const folder = navigationList.find((item) => item.id === folderUrl);
