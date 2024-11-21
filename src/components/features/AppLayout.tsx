@@ -30,13 +30,17 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <SidebarProvider>
       <Sidebar />
-      <MainArea className="max-h-40">
+      <MainArea className="max-h-screen">
         <TopBar />
-        {children}
+        <ContentArea>{children}</ContentArea>
       </MainArea>
     </SidebarProvider>
   );
 }
+
+const ContentArea = ({ children }: { children: React.ReactNode }) => {
+  return <div className="h-full">{children}</div>;
+};
 
 const Sidebar = () => {
   const { navigationList } = useNavigationList();
@@ -103,7 +107,7 @@ const Sidebar = () => {
 };
 const TopBar = () => {
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2">
+    <header className="flex h-16 shrink-0 items-center gap-2 border-b">
       <div className="flex items-center gap-2 px-3">
         <SidebarTrigger />
         <Separator orientation="vertical" className="mr-2 h-4" />

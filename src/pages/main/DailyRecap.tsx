@@ -8,7 +8,7 @@ export function DailyRecap() {
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-5 p-5">
       {formattedData.length === 0 && <NoDataMessage />}
       {formattedData.map((item, index) => (
         <div key={index}>

@@ -8,7 +8,7 @@ interface DashboardCardProps {
   mainContent: string;
   subContent: string;
   iconName?: "dollar" | "people" | "inventory";
-  sentiment: "positive" | "negative";
+  sentiment?: "positive" | "negative";
 }
 
 export const DashboardCard = ({
@@ -18,7 +18,7 @@ export const DashboardCard = ({
   iconName = "dollar",
 }: DashboardCardProps) => {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="text-lg font-medium">{title}</CardTitle>
         {iconName === "dollar" && <DollarIcon />}

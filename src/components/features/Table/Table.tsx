@@ -18,14 +18,10 @@ export function Table({ data, pinnedCols }: TableProps) {
   }
 
   return (
-    <div
-      className="ag-theme-quartz" // applying the Data Grid theme
-      style={{ height: "auto" }} // the Data Grid will fill the size of the parent container
-    >
+    <div className="ag-theme-quartz" style={{ height: "100%", width: "100%" }}>
       <AgGridReact
-        autoSizeStrategy={{ type: "fitGridWidth", defaultMinWidth: 100 }}
         enableCellTextSelection
-        domLayout="autoHeight"
+        // domLayout="autoHeight"
         rowData={data}
         columnDefs={columns}
       />
@@ -42,6 +38,10 @@ const useTable = ({ data, pinnedCols }: TableProps) => {
     field: key,
     pinned: pinnedCols?.includes(index),
     filter: true,
+    flex: 1,
+    resizable: false,
+    minWidth: 200,
+    maxWidth: 400,
     cellStyle: ({ data, column }) => {
       return applyCellConditions(data, column);
     },
