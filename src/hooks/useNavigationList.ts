@@ -3,8 +3,10 @@ import { dailyRecapQueryOptions } from "@/api/main/dailyRecap";
 import { publisherDecreaseQueryOptions } from "@/api/main/publisherDecrease";
 import { publisherIncreaseQueryOptions } from "@/api/main/publisherIncrease";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 
 export const useNavigationList = () => {
+  const { pathname } = useLocation();
   const queryClient = useQueryClient();
 
   const navigationList = [
@@ -138,7 +140,6 @@ export const useNavigationList = () => {
         },
       ],
     },
-
     {
       title: "Monthly Reports",
       id: "monthly",
@@ -195,5 +196,13 @@ export const useNavigationList = () => {
     },
   ];
 
-  return { navigationList };
+  const openFolderIndex = navigationList.findIndex((folder) =>
+    pathname.startsWith(`/${folder.id}`)
+  );
+
+  const activePathIndex = navigationList[openFolderIndex]?.items?.findIndex(
+    (item) => item.url === pathname
+  );
+
+  return { navigationList, openFolderIndex, activePathIndex };
 };

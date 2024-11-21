@@ -43,8 +43,6 @@ const ContentArea = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Sidebar = () => {
-  const { navigationList } = useNavigationList();
-
   return (
     <BaseSideBar>
       <SidebarHeader>
@@ -67,37 +65,7 @@ const Sidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {navigationList.map((item, index) => (
-              <Collapsible key={item.title} defaultOpen={index === 0}>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton className="w-full justify-between hover:bg-sidebar-accent/80">
-                      <span>{item.title}</span>
-                      <ChevronDown className="h-4 w-4" />
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="pl-4 pt-1">
-                    {item.items?.map((subItem) => (
-                      <SidebarMenuItem
-                        key={subItem.title}
-                        onMouseEnter={subItem.prefetch}
-                      >
-                        <SidebarMenuButton asChild>
-                          <Link
-                            to={subItem.url}
-                            className="flex w-full items-center :focus"
-                          >
-                            {subItem.title}
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
-            ))}
+            <Navigation />
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
@@ -105,6 +73,50 @@ const Sidebar = () => {
     </BaseSideBar>
   );
 };
+
+const Navigation = () => {
+  const { navigationList, openFolderIndex, activePathIndex } =
+    useNavigationList();
+
+  return navigationList.map((item, folderIndex) => (
+    <Collapsible key={item.title} defaultOpen={folderIndex === openFolderIndex}>
+      <CollapsibleTrigger asChild>
+        <SidebarMenuItem>
+          <SidebarMenuButton className="w-full justify-between hover:bg-sidebar-accent/80">
+            <span>{item.title}</span>
+            <ChevronDown className="h-4 w-4" />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="pl-4 pt-1">
+          {item.items?.map((subItem, itemIndex) => (
+            <SidebarMenuItem
+              key={subItem.title}
+              onMouseEnter={subItem.prefetch}
+            >
+              <SidebarMenuButton
+                asChild
+                isActive={
+                  itemIndex === activePathIndex &&
+                  folderIndex === openFolderIndex
+                }
+              >
+                <Link
+                  to={subItem.url}
+                  className="flex w-full items-center :focus"
+                >
+                  {subItem.title}
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  ));
+};
+
 const TopBar = () => {
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b">
