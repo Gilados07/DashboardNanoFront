@@ -3,6 +3,7 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import { ColDef } from "node_modules/ag-grid-community/dist/types/core/main";
 import { applyCellConditions } from "./utils";
+import { NoDataMessage } from "../NoDataMessage";
 
 interface TableProps {
   data: Record<string, string>[];
@@ -11,6 +12,10 @@ interface TableProps {
 
 export function Table({ data, pinnedCols }: TableProps) {
   const { columns } = useTable({ data, pinnedCols });
+
+  if (!columns.length) {
+    return <NoDataMessage />;
+  }
 
   return (
     <div
@@ -29,6 +34,10 @@ export function Table({ data, pinnedCols }: TableProps) {
 }
 
 const useTable = ({ data, pinnedCols }: TableProps) => {
+  if (!data.length) {
+    return { columns: [] };
+  }
+
   const columns: ColDef[] = Object.keys(data[0]).map((key, index) => ({
     field: key,
     pinned: pinnedCols?.includes(index),

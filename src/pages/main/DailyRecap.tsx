@@ -1,5 +1,6 @@
 import { useDailyRecap } from "@/api/main/dailyRecap";
 import { DashboardCard } from "@/components/features/DashboardCard";
+import { NoDataMessage } from "@/components/features/NoDataMessage";
 
 export function DailyRecap() {
   const { formattedData, isLoading } = useDailyRecapData();
@@ -8,11 +9,7 @@ export function DailyRecap() {
     <div>Loading...</div>
   ) : (
     <div className="flex flex-wrap gap-4">
-      {formattedData.length === 0 && (
-        <div className="flex py-20 w-full justify-center">
-          <h1 className="text-xl text-muted-foreground">No data available</h1>
-        </div>
-      )}
+      {formattedData.length === 0 && <NoDataMessage />}
       {formattedData.map((item, index) => (
         <div key={index}>
           <DashboardCard
