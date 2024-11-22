@@ -1,8 +1,8 @@
 import {
-  QueryClient,
   UseMutateFunction,
   useMutation,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { createContext, useContext, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +16,14 @@ interface AuthContextType {
     unknown
   >;
   logout: UseMutateFunction<unknown, Error, void, unknown>;
+  isLoggedIn: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { data: user } = useQuery({
     queryKey: ["me"],
     queryFn: async () => {
@@ -32,9 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           credentials: "include",
         }
       );
-      if (!response.ok) {
-        console.log("Not logged in");
-      }
+
       return await response.json();
     },
   });
@@ -66,17 +65,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
   const { mutate: logout } = useMutation({
     mutationFn: () =>
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/logout`).then((res) =>
-        res.json()
-      ),
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      }).then((res) => res.json()),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["me"] });
-      navigate("/");
+      navigate("/login");
     },
   });
+  const isLoggedIn = !!user?.id;
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
