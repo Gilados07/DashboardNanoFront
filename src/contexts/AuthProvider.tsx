@@ -17,6 +17,8 @@ interface AuthContextType {
   >;
   logout: UseMutateFunction<unknown, Error, void, unknown>;
   isLoggedIn: boolean;
+  isLoggingIn: boolean;
+  loginError: Error | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,7 +39,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return await response.json();
     },
   });
-  const { mutate: login } = useMutation({
+  const {
+    mutate: login,
+    isPending: isLoggingIn,
+    error: loginError,
+  } = useMutation({
     mutationFn: async ({
       username,
       password,
@@ -56,6 +62,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           },
         }
       );
+      if (!response.ok) {
+        throw new Error("Invalid username or password");
+      }
+
       return await response.json();
     },
     onSuccess: () => {
@@ -77,7 +87,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isLoggedIn = !!user?.id;
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, isLoggedIn, isLoggingIn, loginError }}
+    >
       {children}
     </AuthContext.Provider>
   );

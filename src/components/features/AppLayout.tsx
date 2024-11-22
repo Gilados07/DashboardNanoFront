@@ -41,7 +41,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     <SidebarProvider>
       {isLoggedIn && <Sidebar />}
       <MainArea className="max-h-screen">
-        <TopBar />
+        {isLoggedIn && <TopBar />}
         <ContentArea>{children}</ContentArea>
       </MainArea>
     </SidebarProvider>
