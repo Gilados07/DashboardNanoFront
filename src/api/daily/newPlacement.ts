@@ -1,20 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
+import { fetchRequest } from "../fetchRequest";
 
-export const newPlacementQueryOptions = {
+async function getNewPlacements() {
+  const data = await fetchRequest(
+    `${import.meta.env.VITE_BACKEND_URL}/api/v1/reports/daily/new-placements`
+  );
+
+  return data;
+}
+
+export const newPlacementQueryOptions = queryOptions({
   queryKey: ["daily", "new-placements"],
   queryFn: getNewPlacements,
   staleTime: 1000 * 5,
-};
+});
 
 export const useDailyNewPlacements = () => {
   return useQuery(newPlacementQueryOptions);
 };
-
-async function getNewPlacements() {
-  const result = await fetch(
-    "http://localhost:3001/api/v1/reports/daily/new-placements"
-  );
-  const data = await result.json();
-
-  return data;
-}

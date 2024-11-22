@@ -21,15 +21,18 @@ import {
 import { Link } from "react-router-dom";
 import { useNavigationList } from "@/hooks/useNavigationList";
 import { NavigationBreadcrumbs } from "./NavigationBreadcrumbs";
+import { useAuth } from "@/contexts/AuthProvider";
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 export function AppLayout({ children }: AppLayoutProps) {
+  const { user } = useAuth();
+
   return (
     <SidebarProvider>
-      <Sidebar />
+      {user && <Sidebar />}
       <MainArea className="max-h-screen">
         <TopBar />
         <ContentArea>{children}</ContentArea>

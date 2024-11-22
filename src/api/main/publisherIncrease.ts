@@ -1,19 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
+import { fetchRequest } from "../fetchRequest";
 
 const getPublisherIncrease = async () => {
-  const result = await fetch(
-    "http://localhost:3001/api/v1/reports/main/publisher-increase"
+  const data = await fetchRequest(
+    `${import.meta.env.VITE_BACKEND_URL}/api/v1/reports/main/publisher-increase`
   );
-  const data = await result.json();
 
   return data;
 };
 
-export const publisherIncreaseQueryOptions = {
+export const publisherIncreaseQueryOptions = queryOptions({
   queryKey: ["main", "publisher-increase"],
   queryFn: getPublisherIncrease,
   staleTime: 1000 * 5,
-};
+});
 
 export const usePublisherIncrease = () =>
   useQuery(publisherIncreaseQueryOptions);
