@@ -1,19 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
+import { fetchRequest } from "../fetchRequest";
 
 const getPublisherDecrease = async () => {
-  const result = await fetch(
-    "http://localhost:3001/api/v1/reports/main/publisher-decrease"
+  const data = await fetchRequest(
+    `${import.meta.env.VITE_BACKEND_URL}/api/v1/reports/main/publisher-decrease`
   );
-  const data = await result.json();
 
   return data;
 };
 
-export const publisherDecreaseQueryOptions = {
+export const publisherDecreaseQueryOptions = queryOptions({
   queryKey: ["main", "publisher-decrease"],
   queryFn: getPublisherDecrease,
   staleTime: 1000 * 5,
-};
+});
 
 export const usePublisherDecrease = () => {
   return useQuery(publisherDecreaseQueryOptions);

@@ -1,4 +1,4 @@
-import { ChevronDown, GalleryVerticalEnd } from "lucide-react";
+import { ChevronDown, MoreVertical, GalleryVerticalEnd } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar as BaseSideBar,
@@ -21,17 +21,27 @@ import {
 import { Link } from "react-router-dom";
 import { useNavigationList } from "@/hooks/useNavigationList";
 import { NavigationBreadcrumbs } from "./NavigationBreadcrumbs";
+import { useAuth } from "@/contexts/AuthProvider";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 export function AppLayout({ children }: AppLayoutProps) {
+  const { isLoggedIn } = useAuth();
+
   return (
     <SidebarProvider>
-      <Sidebar />
+      {isLoggedIn && <Sidebar />}
       <MainArea className="max-h-screen">
-        <TopBar />
+        {isLoggedIn && <TopBar />}
         <ContentArea>{children}</ContentArea>
       </MainArea>
     </SidebarProvider>
@@ -43,22 +53,34 @@ const ContentArea = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Sidebar = () => {
+  const { logout } = useAuth();
+
   return (
     <BaseSideBar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" className="red" asChild>
-              <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Nano Dashboard</span>
-                  <span className="">v1.0.0</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton size="lg" className="red">
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                    <GalleryVerticalEnd className="size-4" />
+                  </div>
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="font-semibold">Nano Dashboard</span>
+                    <span className="">v1.0.0</span>
+                  </div>
+                  <MoreVertical className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="right">
+                <DropdownMenuItem>
+                  <Button onClick={() => logout()} variant="ghost">
+                    Logout
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
