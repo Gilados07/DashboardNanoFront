@@ -11,7 +11,7 @@ import { PublisherDecrease } from "./pages/main/PublisherDecrease";
 import { PublisherIncrease } from "./pages/main/PublisherIncrease";
 import { NewPlacementDaily } from "./pages/daily/NewPlacementDaily";
 import { AuthProvider } from "./contexts/AuthProvider";
-import { Login } from "./pages/auth/LogIn";
+import { Login } from "./pages/auth/Login";
 
 const queryClient = new QueryClient();
 
