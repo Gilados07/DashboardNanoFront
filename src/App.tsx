@@ -12,6 +12,7 @@ import { PublisherIncrease } from "./pages/main/PublisherIncrease";
 import { NewPlacementDaily } from "./pages/daily/NewPlacementDaily";
 import { AuthProvider } from "./contexts/AuthProvider";
 import { Login } from "./pages/auth/Login";
+import { WeeklyRevenue } from "./pages/weekly/WeeklyRevenue";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,10 @@ function App() {
                 <Route
                   path="/main/publisher-increase"
                   element={<PublisherIncrease />}
+                />
+                <Route
+                  path="/weekly/weekly-revenue"
+                  element={<WeeklyRevenue />}
                 />
               </Routes>
             </AppLayout>
