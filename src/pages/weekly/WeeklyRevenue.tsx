@@ -78,6 +78,7 @@ export function WeeklyRevenue() {
                 content={
                   <ChartTooltipContent
                     indicator="line"
+
                     // formatValue={(value: string) => formatCurrency(value)}
                   />
                 }
