@@ -123,6 +123,13 @@ export const useNavigationList = () => {
       id: "weekly",
       items: [
         {
+          title: "Revenue Weekly Graph",
+          url: "/weekly/weekly-revenue",
+          prefetch: () => {
+            queryClient.prefetchQuery(newPlacementQueryOptions);
+          },
+        },
+        {
           title: "Revenue Decrease",
           url: "#",
         },
